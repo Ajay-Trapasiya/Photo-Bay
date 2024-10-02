@@ -5,7 +5,7 @@ const StatusBarcom = () => {
   const [change, setChange] = useState('dark-content');
   return (
     <View>
-      <StatusBar backgroundColor={'grey'} barStyle={change} />
+      <StatusBar backgroundColor={'green'} barStyle={change} />
       <Button title="press here" onPress={() => setChange('default')} />
     </View>
   );

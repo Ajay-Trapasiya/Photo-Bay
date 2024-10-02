@@ -15,7 +15,7 @@ const InputText = () => {
         // onChangeText={(value)=> setName(value)} value={name}
         style={styles.inputStyle}
         placeholder='Enter you name'
-        onChangeText={(value)=>setName(value)}
+        onChangeText={(value)=>s0etName(value)}
         // keyboardType='numeric'
       
 

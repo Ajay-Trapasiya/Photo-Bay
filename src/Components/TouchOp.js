@@ -14,8 +14,8 @@ const TouchOp = () => {
     <View style={styles.main}>
       <TouchableOpacity
         style={styles.touch}
-        onPress={() => {}}
-        activeOpacity={0.8}>
+        activeOpacity={0.8}
+        activeOpacity={0.2}>
         <Image source={require('./Assests/logo.png')} />
         <Text>Opacity</Text>
       </TouchableOpacity>
@@ -25,11 +25,7 @@ const TouchOp = () => {
           title="hello"
           color={'red'}
           style={styles.btn}
-          onPress={() => {
-            // setCount(count + 1);
-            setCount;
-            // console.log('fsdfs');
-          }}
+          onPress={() => setCount(count + 1)}
         />
       </View>
     </View>
@@ -37,9 +33,12 @@ const TouchOp = () => {
 };
 const styles = StyleSheet.create({
   touch: {
-    backgroundColor: 'green',
-    width: 170,
+    backgroundColor: 'orange',
+    width: '40%',
     height: 67,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 'auto',
   },
   main: {
     flex: 1,

@@ -6,9 +6,11 @@ const Modalcom = () => {
   return (
     <View style={styles.main}>
       <View style={styles.modalContainer}>
-        <Modal transparent={true} visible={visisble}>
-          <Text style={styles.textStyle}>Hello Modal</Text>
-          <Button title="press here" onPress={() => setVisible(false)} />
+        <Modal transparent={true} visible={visisble} animationType="slide">
+          <View style={styles.modalView}>
+            <Text style={styles.textStyle}>Hello Modal</Text>
+            <Button title="press here" onPress={() => setVisible(false)} />
+          </View>
         </Modal>
       </View>
 
@@ -30,11 +32,27 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    color: 'blue',
   },
   textStyle: {
     fontSize: 29,
-    color: 'blue',
+    color: 'orange',
+    textAlign: 'center',
+  },
+  modelStyle: {
+    borderWidth: 3,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    borderWidth: 4,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
   },
 });
 export default Modalcom;

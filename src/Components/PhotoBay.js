@@ -47,7 +47,9 @@ const PhotoBay = () => {
           <View style={styles.photoCard}>
             <View style={styles.box}>
               <View style={styles.pictureHeader}>
-                <Text style={styles.headerText}>{item.name}</Text>
+                <Text style={styles.headerText}>
+                  {item.name + 'dsbfskpoiuytrewqpoiuytrewuytreytrewtrew'}
+                </Text>
                 <Image
                   source={require('./Assests/dots.png')}
                   style={styles.dot}
