@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   FlatList,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import React, {useState} from 'react';
 
@@ -14,25 +15,42 @@ const FormBasic = () => {
   const [name, setName] = useState('');
   const [pass, setPass] = useState('');
   const [mail, setMail] = useState('');
-
+  const [isEdit, setIsEdit] = useState(false);
+  const [uniqueId, setUniqueId] = useState(null);
+  const _id = Math.floor(Math.random() * 999);
   const [updatedData, setUpdatedData] = useState([]);
-
-  const UserData = () => {
-    setUpdatedData([...updatedData, {name: name, password: pass, Mail: mail}]);
+  // const [like,setLike] = useState(false)
+  // console.log(updatedData);
+  const onSaveDataPress = () => {
+    setUpdatedData([
+      ...updatedData,
+      {name: name, password: pass, mail: mail, id: _id, isLike: false},
+    ]);
     setName('');
     setPass('');
     setMail('');
   };
-  const DeleteData = () => {
-    const NewData = updatedData.filter(x =>
-      console.log(updatedData.indexOf(x)),
-    );
-    console.log('->>>>>>', NewData);
+
+  const onEditDataPress = () => {
+    console.log('......Id', uniqueId);
+
+    const modifiedData = updatedData.map(element => {
+      if (element.id === uniqueId) {
+        return {...element, name: name, password: pass, mail: mail};
+      }
+      setIsEdit(false);
+      setName('');
+      setPass('');
+      setMail('');
+      return element;
+    });
+    setUpdatedData(modifiedData);
   };
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <Text style={styles.text}>Online Registration</Text>
+      <Text style={styles.cardCount}>Total Cards: {updatedData.length}</Text>
       <TextInput
         style={styles.textInput}
         placeholder="Enter your name"
@@ -54,35 +72,69 @@ const FormBasic = () => {
         value={mail}
       />
 
-      <Button title="Sava Data " onPress={UserData} />
+      <Button
+        title={isEdit ? 'Edit Data' : 'Sava Data'}
+        onPress={() => {
+          isEdit ? onEditDataPress() : onSaveDataPress();
+        }}
+      />
 
       <FlatList
         style={{flex: 1}}
         data={updatedData}
-        renderItem={({item, index}) => {
-          console.log(index);
+        renderItem={({item}) => {
           return (
             <View style={styles.cards}>
+              <Text style={styles.text}> Id:-{item.id}</Text>
               <Text style={styles.text}> Name:-{item.name}</Text>
               <Text style={styles.text}> Password:-{item.password}</Text>
-              <Text style={styles.text}>Mail:-{item.Mail}</Text>
-              <TouchableOpacity style={styles.deleteBtn} onPress={DeleteData}>
+              <Text style={styles.text}>Mail:-{item.mail}</Text>
+              <TouchableOpacity
+                style={styles.deleteBtn}
+                onPress={() => {
+                  const deletedData = updatedData.filter(
+                    obj => obj.id !== item.id,
+                  );
+                  setUpdatedData(deletedData);
+                }}>
                 <Text style={styles.btnText}>Delete</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.editBtn}
+                onPress={() => {
+                  setIsEdit(true);
+                  setName(item.name);
+                  setPass(item.password);
+                  setMail(item.mail);
+                  setUniqueId(item.id);
+                }}>
+                <Text style={styles.btnText}>Edit</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.likeButtonContainer}
+                onPress={() => {
+                  const updatedLike = updatedData.map(obj => {
+                    if (obj.id === item.id) {
+                      return {...obj, isLike: !obj.isLike};
+                    }
+                    return obj;
+                  });
+                  console.log(updatedLike);
+                  setUpdatedData(updatedLike);
+
+                  // console.warn('pressed id>>>>>', item.id);
+                }}>
+                <Image
+                  tintColor={item.isLike ? 'red' : 'black'}
+                  style={styles.likeBtn}
+                  source={require('./Assests/Darkheart.png')}
+                />
               </TouchableOpacity>
             </View>
           );
         }}
       />
-
-      {/* <View>
-        {display ? (
-          <View style={styles.cards}>
-            <Text style={styles.text}>Your Name is:{name}</Text>
-            <Text style={styles.text}>Your Password is:{pass}</Text>
-            <Text style={styles.text}>Your Email is:{mail}</Text>
-          </View>
-        ) : null}
-      </View> */}
     </SafeAreaView>
   );
 };
@@ -121,6 +173,26 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 21,
     color: 'black',
+  },
+  cardCount: {
+    fontSize: 18,
+    color: 'black',
+    textAlign: 'center',
+    marginVertical: 10,
+  },
+  editBtn: {
+    backgroundColor: 'pink',
+    borderRadius: 3,
+    width: '30%',
+    margin: 8,
+  },
+  likeButtonContainer: {
+    flex: 1,
+    alignSelf: 'flex-start',
+  },
+  likeBtn: {
+    height: 39,
+    width: 39,
   },
 });
 

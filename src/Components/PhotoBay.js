@@ -47,7 +47,7 @@ const PhotoBay = () => {
           <View style={styles.photoCard}>
             <View style={styles.box}>
               <View style={styles.pictureHeader}>
-                <Text style={styles.headerText}>
+                <Text style={styles.headerText} numberOfLines={1}>
                   {item.name + 'dsbfskpoiuytrewqpoiuytrewuytreytrewtrew'}
                 </Text>
                 <Image
